@@ -1,0 +1,29 @@
+@import "./css-reset";
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: $bg_color_1;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+input,
+button,
+textarea {
+    outline: none;
+    border: none;
+    background: inherit;
+
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
