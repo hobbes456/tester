@@ -1,0 +1,27 @@
+.loginForm {
+    margin-bottom: 15px;
+
+    display: grid;
+    gap: 30px;
+    width: 100%;
+    max-width: 250px;
+    padding: 30px;
+
+    &__buttons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    &__button {
+        @include form_button;
+
+        &[type="submit"] {
+            @include hover_c_bg($bg_color_2, $form_button_color_1, 0.3s);
+        }
+
+        &[type="reset"] {
+            @include hover_c_bg($bg_color_2, $form_button_color_2, 0.3s);
+        }
+    }
+}

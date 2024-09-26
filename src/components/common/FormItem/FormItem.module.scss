@@ -1,0 +1,21 @@
+.formItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    @include p_normal_font;
+
+    &__field {
+        width: 90%;
+        padding: 10px;
+
+        @include input_field;
+    }
+
+    &__warning {
+        @include p_small_font;
+
+        color: $red_1;
+        word-break: normal;
+    }
+}

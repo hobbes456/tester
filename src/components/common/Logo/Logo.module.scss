@@ -1,0 +1,26 @@
+.logo {
+    display: flex;
+
+    & > div {
+        $n_size: 50px;
+        $s_size: $n_size/2;
+
+        width: $n_size;
+        height: $n_size;
+
+        background-color: $black;
+
+        &:last-child {
+            border-radius: $n_size;
+        }
+
+        @include v550 {
+            width: $s_size;
+            height: $s_size;
+
+            &:last-child {
+                border-radius: $s_size;
+            }
+        }
+    }
+}

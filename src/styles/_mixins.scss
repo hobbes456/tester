@@ -1,0 +1,87 @@
+@mixin v550 {
+    @media screen and (max-width: $viewport550) {
+        @content;
+    }
+}
+
+@mixin roboto_medium {
+    font-style: normal;
+    font-family: "Roboto-Medium", sans-serif;
+    word-wrap: break-word;
+}
+
+@mixin h1_font {
+    @include roboto_medium;
+    font-size: 50px;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+@mixin p_big_font {
+    @include roboto_medium;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.22;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+@mixin p_normal_font {
+    @include roboto_medium;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.42;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+@mixin p_small_font {
+    @include roboto_medium;
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 1.42;
+    word-wrap: break-word;
+}
+
+@mixin flex_column_center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin hover_c_bg($color, $bg-color, $s) {
+    transition: color $s ease-in-out, background-color $s ease-in-out;
+
+    &:hover {
+        color: $color;
+        background-color: $bg-color;
+    }
+}
+
+@mixin form_button {
+    width: 100px;
+    padding: 10px;
+
+    text-align: center;
+
+    border: 2px solid $grey_3;
+    border-radius: 10px;
+
+    &:active {
+        opacity: 0.5;
+    }
+}
+
+@mixin input_field {
+    background-color: $white;
+
+    border: 1px solid $grey_3;
+    border-radius: 10px;
+
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: $grey_4;
+    }
+}

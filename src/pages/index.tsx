@@ -1,5 +1,7 @@
 import Head from "next/head";
 
+import LoginScreen from "@pages/LoginScreen";
+
 export default function Home() {
     return (
         <>
@@ -21,6 +23,7 @@ export default function Home() {
                 />
                 <link rel="icon" href="/github-logo.png" />
             </Head>
+            <LoginScreen />
         </>
     );
 }
