@@ -12,15 +12,15 @@ const {
 const isEmpty = (value: string): string | boolean =>
     value.trim() === "" ? IS_EMPTY : true;
 
-export const loginFormItems: IFormItem[] = [
+export const authFormItems: IFormItem[] = [
     {
-        title: "Login",
-        id: "login",
+        title: "Username",
+        id: "username",
         type: "text",
-        placeholder: "Inter the login",
+        placeholder: "Inter the username",
         validations: {
             required: { value: true, message: REQUIRED_ERROR_MESSAGE },
-            minLength: { value: 2, message: MINLENGTH_ERROR_MESSAGE },
+            minLength: { value: 6, message: MINLENGTH_ERROR_MESSAGE },
             maxLength: { value: 20, message: MAXLENGTH_ERROR_MESSAGE },
             validate: (value: string) => isEmpty(value),
         },

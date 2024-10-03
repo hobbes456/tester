@@ -1,0 +1,42 @@
+.account {
+    margin-right: 20px;
+
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 200px;
+
+    @include p_normal_font;
+
+    @include v550 {
+        @include p_small_font;
+    }
+
+    &__information {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        padding-right: 20px;
+
+        border-right: 2px solid $grey_2;
+    }
+
+    &__admin {
+        color: $green_1;
+
+        &_red {
+            color: $form_button_color_2;
+        }
+    }
+
+    &__button {
+        color: $grey_2;
+
+        transition: color 0.15s ease;
+
+        &:hover {
+            color: $red_1;
+        }
+    }
+}

@@ -1,5 +1,6 @@
 export interface IUser {
-    login: string;
+    username: string;
     password: string;
-    isAdmin: boolean;
+    password_confirmation?: string;
+    is_admin?: boolean |string;
 }

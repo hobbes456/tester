@@ -7,6 +7,37 @@
     max-width: 250px;
     padding: 30px;
 
+    &__switches {
+        margin-top: 25px;
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        max-width: 250px;
+    }
+
+    &__switch {
+        @include p_big_font;
+        color: $grey_2;
+
+        border-bottom: 3px solid transparent;
+
+        transition: color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+
+        @include v550 {
+            @include p_normal_font;
+
+            border-width: 2px;
+        }
+
+        &_active {
+            color: $black;
+
+            border-color: $form_button_color_2;
+        }
+    }
+
     &__buttons {
         display: flex;
         justify-content: space-around;

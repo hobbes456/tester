@@ -6,4 +6,9 @@
     @include v550 {
         margin-top: 30px;
     }
+
+    &__error {
+        @include p_normal_font;
+        color: $red_1;
+    }
 }

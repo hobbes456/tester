@@ -10,6 +10,14 @@
 
         background-color: $black;
 
+        transition: background-color 0.2s ease-in-out;
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: $form_button_color_2;
+        }
+
         &:last-child {
             border-radius: $n_size;
         }
