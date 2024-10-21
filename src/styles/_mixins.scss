@@ -85,3 +85,28 @@
         background-color: $grey_4;
     }
 }
+
+@mixin in_modal_window_field {
+    z-index: 1;
+
+    @include flex_column_center;
+    width: 100%;
+    max-width: 340px;
+    padding: 20px;
+
+    background-color: $bg_color_1;
+    border-radius: 20px;
+
+    filter: drop-shadow(0 0 4px $white);
+
+    @include p_normal_font;
+    color: $grey_1;
+
+    @include v550 {
+        padding: 10px;
+
+        @include p_small_font;
+
+        border-radius: 10px;
+    }
+}

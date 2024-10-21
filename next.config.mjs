@@ -12,6 +12,14 @@ const nextConfig = {
         includePaths: [path.join(__dirname, "src")],
         prependData: `@use "src/styles/_helpers.scss" as *;`,
     },
+    
+    redirects: async () => [
+        {
+            source: "/",
+            destination: "/login",
+            permanent: true,
+        },
+    ],
 };
 
 export default nextConfig;

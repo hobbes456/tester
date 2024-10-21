@@ -1,14 +1,10 @@
-"use client"
-
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
 import clsx from "clsx";
 
 import { useAction } from "@/hooks/useAction";
-import { useAppSelector } from "@/hooks/useAppSelector";
 
-import { setRegister, setLogin, userSelectors } from "@/models/user";
+import { setRegister, setLogin } from "@/models/user";
 
 import FormItem from "@components/FormItem";
 
@@ -22,10 +18,6 @@ import { formButtons } from "@/constants/formButtons";
 import s from "./LoginForm.module.scss";
 
 const LoginForm = () => {
-    const router = useRouter();
-
-    const isError = useAppSelector(userSelectors.isError);
-
     const [option, setOption] = useState<"Auth" | "Reg">("Auth");
 
     const {
@@ -46,22 +38,18 @@ const LoginForm = () => {
     const handleRegister = useAction(setRegister);
     const handleLogin = useAction(setLogin);
 
-    const onSubmit: SubmitHandler<IUser> = (data: IUser) => {
+    const onSubmit: SubmitHandler<IUser> = async (data: IUser) => {
         if (option === "Auth") {
-            handleLogin(data);
+            await handleLogin(data);
         } else if (option === "Reg") {
             data = {
                 ...data,
                 is_admin: data.is_admin === "true" ? true : false,
             };
-            handleRegister(data);
+            await handleRegister(data);
         }
 
-        if (!isError) {
-            reset();
-
-            router.push("/dashboard");
-        }
+        reset();
     };
 
     return (

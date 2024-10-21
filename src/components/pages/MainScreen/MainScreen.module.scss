@@ -1,0 +1,20 @@
+.mainScreen {
+    @include flex_column_center;
+
+    &__title {
+        margin: 50px 0 30px 0;
+
+        @include p_big_font;
+        text-decoration: underline;
+
+        @include v550 {
+            margin-top: 25px;
+
+            @include p_normal_font;
+        }
+    }
+
+    &__list {
+        @include flex_column_center;
+    }
+}

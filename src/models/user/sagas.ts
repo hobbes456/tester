@@ -36,7 +36,6 @@ function* handleLoginSaga(action: PayloadAction<IUser>) {
 function* handleCurrentSaga() {
     try {
         const user: IUser = yield call(currentUser);
-        console.log("Hello from saga");
         yield put(getSuccess(user));
     } catch (error) {
         yield put(getFailure((error as Error).message));
@@ -55,6 +54,6 @@ function* handleLogoutSaga() {
 export function* watchUserSagas() {
     yield takeEvery(setRegister.type, handleRegisterSaga);
     yield takeEvery(setLogin.type, handleLoginSaga);
-    yield takeEvery(setLogout.type, handleLogoutSaga);
     yield takeEvery(setCurrent.type, handleCurrentSaga);
+    yield takeEvery(setLogout.type, handleLogoutSaga);
 }

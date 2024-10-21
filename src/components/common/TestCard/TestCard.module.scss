@@ -1,0 +1,53 @@
+.testCard {
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 750px;
+
+    @include v550 {
+        max-width: 300px;
+    }
+
+    &__information {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 15px;
+
+        border: 2px solid $grey_1;
+        border-radius: 10px;
+
+        transition: background-color 0.2s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $green_1;
+        }
+
+        &:active {
+            filter: opacity(0.7);
+        }
+    }
+
+    &__title {
+        @include p_big_font;
+
+        @include v550 {
+            @include p_normal_font;
+        }
+    }
+
+    &__text {
+        @include p_small_font;
+        color: $grey_2;
+    }
+
+    &__tool {
+        margin-left: 20px;
+
+        cursor: pointer;
+    }
+}

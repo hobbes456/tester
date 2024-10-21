@@ -1,9 +1,36 @@
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 10px;
 
     border-bottom: 2px solid $grey_2;
+
+    &__links {
+        margin-right: auto;
+
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 200px;
+        padding: 10px;
+    }
+
+    &__link {
+        @include p-normal-font;
+
+        transition: color 0.15s ease;
+
+        @include v550 {
+            @include p-small-font;
+        }
+
+        &:hover {
+            color: $grey_3;
+        }
+
+        &:active {
+            color: $grey_2;
+        }
+    }
 }

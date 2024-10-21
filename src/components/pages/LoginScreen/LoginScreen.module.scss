@@ -9,6 +9,7 @@
 
     &__error {
         @include p_normal_font;
+        text-align: center;
         color: $red_1;
     }
 }

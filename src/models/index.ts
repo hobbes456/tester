@@ -7,14 +7,15 @@ const combinedReducer = combineReducers({
     user: userSlice,
 });
 
-export const rootReducer = (state, action) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const rootReducer = (state: any, action: any) => {
     if (action.type === HYDRATE) {
-        console.log(1234)
         return {
             ...state,
             ...action.payload,
         };
+    } else {
+        return combinedReducer(state, action);
     }
-
-    return combinedReducer(state, action);
 };
+// export const rootReducer = combinedReducer;

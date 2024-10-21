@@ -1,0 +1,27 @@
+.confirmation {
+    @include in_modal_window_field;
+
+    &__buttons {
+        margin-top: 15px;
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    &__button {
+        border-bottom: 2px solid transparent;
+
+        transition: color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+
+        &:hover {
+            border-color: $form_button_color_2;
+        }
+
+        &:active {
+            color: $grey_2;
+        }
+    }
+}
