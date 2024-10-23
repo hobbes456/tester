@@ -33,9 +33,9 @@ function* handleLoginSaga(action: PayloadAction<IUser>) {
     }
 }
 
-function* handleCurrentSaga() {
+function* handleCurrentSaga(action: PayloadAction<string | null>) {
     try {
-        const user: IUser = yield call(currentUser);
+        const user: IUser = yield call(currentUser, action.payload);
         yield put(getSuccess(user));
     } catch (error) {
         yield put(getFailure((error as Error).message));

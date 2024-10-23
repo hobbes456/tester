@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import type { AppProps } from "next/app";
-import { useRouter } from "next/router";
 import { END } from "redux-saga";
 
 import { wrapper, SagaStore } from "@/store";
 
 import DefaultHead from "@components/DefaultHead";
 import Layout from "@components/Layout";
-import Header from "@components/Header";
 
 import "@/styles/globals.scss";
 
@@ -16,18 +14,10 @@ const App: React.FC<AppProps> = ({ Component, ...rest }) => {
     const { store, props } = wrapper.useWrappedStore(rest);
     const { pageProps } = props;
 
-    const router = useRouter();
-    const [showHeader, setShowHeader] = useState<boolean>(false);
-
-    useEffect(() => {
-        setShowHeader(router.pathname === "/login" ? false : true);
-    }, [router.pathname]);
-
     return (
         <Provider store={store}>
             <Layout>
                 <DefaultHead />
-                {showHeader && <Header />}
                 <Component {...pageProps} />
             </Layout>
         </Provider>

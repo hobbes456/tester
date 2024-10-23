@@ -20,6 +20,7 @@ const Account: React.FC<AccountProps> = ({ user }) => {
 
     const handleLogout = async () => {
         await logoutRequest();
+        localStorage.removeItem("isWelcomeShow");
     };
 
     return (

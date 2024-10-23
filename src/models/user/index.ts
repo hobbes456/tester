@@ -30,7 +30,7 @@ const userSlice = createSlice({
             state.isLoading = true;
             state.isError = null;
         },
-        setCurrent(state) {
+        setCurrent(state, action: PayloadAction<string | null>) {
             state.isLoading = true;
             state.isError = null;
         },

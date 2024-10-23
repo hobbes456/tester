@@ -2,13 +2,13 @@
     @include flex_column_center;
 
     &__title {
-        margin: 50px 0 30px 0;
+        margin: 100px 0 30px 0;
 
         @include p_big_font;
         text-decoration: underline;
 
         @include v550 {
-            margin-top: 25px;
+            margin-top: 70px;
 
             @include p_normal_font;
         }

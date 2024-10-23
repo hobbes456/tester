@@ -1,9 +1,8 @@
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useAppSelector } from "@/hooks/useAppSelector";
-
-import { userSelectors } from "@/models/user";
+import { IUser } from "@/interface/IUser";
 
 import Logo from "@components/Logo";
 import Account from "@components/Account";
@@ -12,31 +11,32 @@ import { headerLinks } from "@/constants/headerLinks";
 
 import s from "./Header.module.scss";
 
-const Header = () => {
+type HeaderProps = {
+    user: IUser;
+};
+
+const Header: React.FC<HeaderProps> = ({ user }) => {
     const router = useRouter();
-
-    const user = useAppSelector(userSelectors.user);
-
-    const currentLinks = headerLinks.filter(
-        (link) => link.rout !== router.pathname
-    );
 
     return (
         <div className={s.header}>
             <Logo />
-            <div className={s.header__links}>
-                {currentLinks.map((link) => {
-                    return (
-                        <Link
-                            key={link.name}
-                            href={link.rout}
-                            className={s.header__link}
-                        >
-                            {link.name}
-                        </Link>
-                    );
-                })}
-            </div>
+            <ul className={s.header__links}>
+                {headerLinks
+                    .filter((link) => link.rout !== router.pathname)
+                    .map((link) => {
+                        return (
+                            <li key={link.name}>
+                                <Link
+                                    href={link.rout}
+                                    className={s.header__link}
+                                >
+                                    {link.name}
+                                </Link>
+                            </li>
+                        );
+                    })}
+            </ul>
             {user && <Account user={user} />}
         </div>
     );

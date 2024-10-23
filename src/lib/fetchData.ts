@@ -5,6 +5,10 @@ import { SCOPE_KEY } from "@/constants/scopeKey";
 
 export const fetchData = axios.create({
     baseURL: BASE_URL,
-    headers: { "scope-key": SCOPE_KEY },
+    headers: {
+        Accept: "application/json",
+        "scope-key": SCOPE_KEY,
+        "Content-Type": "application/json",
+    },
     withCredentials: true,
 });

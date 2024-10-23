@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import { useAppSelector } from "@/hooks/useAppSelector";
 
 import { userSelectors } from "@/models/user";
@@ -7,42 +6,45 @@ import { userSelectors } from "@/models/user";
 import ModalWindow from "@components/ModalWindow";
 import Welcome from "@components/Welcome";
 import TestCard from "@components/TestCard";
+import Header from "@components/Header";
 
 import s from "./MainScreen.module.scss";
-import Drag from "@/components/common/DRAG";
 
 const MainScreen = () => {
-    const [showWelcome, setShowWelcome] = useState<boolean>(true);
-
-    const handleClose = () => setShowWelcome((prev) => !prev);
+    const [isWelcome, setIsWelcome] = useState<boolean>(false);
 
     const user = useAppSelector(userSelectors.user);
-    const isError = useAppSelector(userSelectors.isError);
+
+    const handleClose = () => {
+        setIsWelcome((prev) => !prev);
+        localStorage.setItem("isWelcomeShow", JSON.stringify(false));
+    };
+
+    useEffect(() => {
+        const savedValue = localStorage.getItem("isWelcomeShow");
+        setIsWelcome(savedValue ? JSON.parse(savedValue) : true);
+    }, []);
 
     return (
         <div className={s.mainScreen}>
-            {isError ? (
-                <>
-                    <p>error: {isError}</p>
-                    <Drag />
-                </>
-            ) : (
-                <>
-                    <h1 className={s.mainScreen__title}>List of tests</h1>
-                    {user && (
-                        <ul className={s.mainScreen__list}>
-                            <TestCard user={user} />
-                            <TestCard user={user} />
-                            <TestCard user={user} />
-                            <TestCard user={user} />
-                        </ul>
-                    )}
-                    {showWelcome && user && (
-                        <ModalWindow title="Welcome" onClose={handleClose}>
-                            <Welcome user={user} />
-                        </ModalWindow>
-                    )}
-                </>
+            <Header user={user} />
+            <h1 className={s.mainScreen__title}>List of tests</h1>
+            {user && (
+                <ul className={s.mainScreen__list}>
+                    <TestCard user={user} />
+                    <TestCard user={user} />
+                    <TestCard user={user} />
+                    <TestCard user={user} />
+                    <TestCard user={user} />
+                    <TestCard user={user} />
+                    <TestCard user={user} />
+                    <TestCard user={user} />
+                </ul>
+            )}
+            {isWelcome && (
+                <ModalWindow title="Welcome" onClose={() => handleClose()}>
+                    <Welcome user={user} />
+                </ModalWindow>
             )}
         </div>
     );
