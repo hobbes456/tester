@@ -7,6 +7,7 @@ export * as userSelectors from "./selectors";
 interface InitialStateUserProps {
     isAuthenticated: boolean;
     user: IUser | null;
+    registered: boolean;
     isLoading: boolean;
     isError: string | null;
 }
@@ -14,6 +15,7 @@ interface InitialStateUserProps {
 const initialState: InitialStateUserProps = {
     isAuthenticated: false,
     user: null,
+    registered: false,
     isLoading: false,
     isError: null,
 };
@@ -35,9 +37,14 @@ const userSlice = createSlice({
             state.isError = null;
         },
         setLogout() {},
-        getSuccess(state, action: PayloadAction<IUser>) {
+        getSuccessSignup(state) {
+            state.registered = true;
+            state.isLoading = false;
+        },
+        getSuccessSignin(state, action: PayloadAction<IUser>) {
             state.isAuthenticated = true;
             state.user = action.payload;
+            state.registered = false;
             state.isLoading = false;
         },
         getFailure(state, action: PayloadAction<string>) {
@@ -56,7 +63,8 @@ export const {
     setLogin,
     setCurrent,
     setLogout,
-    getSuccess,
+    getSuccessSignup,
+    getSuccessSignin,
     getFailure,
     getLogout,
 } = userSlice.actions;

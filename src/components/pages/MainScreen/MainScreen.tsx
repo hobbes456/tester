@@ -28,7 +28,7 @@ const MainScreen = () => {
             handleWelcomeDone(true);
             localStorage.setItem("isWelcome", JSON.stringify(isWelcome));
         }
-    }, []);
+    }, [isWelcome, handleWelcomeDone]);
 
     return (
         <div className={s.mainScreen}>

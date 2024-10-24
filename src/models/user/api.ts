@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookie, destroyCookie } from "nookies";
+import { destroyCookie, setCookie } from "nookies";
 
 import { fetchData } from "@/lib/fetchData";
 
@@ -7,9 +7,8 @@ import { IUser } from "@/interface/IUser";
 
 import { SESSION_ID } from "@/constants/cookieNames";
 
-export const userRegister = async (user: IUser): Promise<IUser> => {
-    const { data } = await fetchData.post("/signup", user);
-    return data;
+export const userRegister = async (user: IUser): Promise<void> => {
+    await fetchData.post("/signup", user);
 };
 
 export const userLogin = async (user: IUser): Promise<IUser> => {
@@ -17,10 +16,12 @@ export const userLogin = async (user: IUser): Promise<IUser> => {
 
     const cookie = data?.cookie;
 
-    setCookie(null, SESSION_ID, cookie, {
-        maxAge: 30 * 24 * 60 * 60,
-        path: "/",
-    });
+    if (cookie) {
+        setCookie(null, SESSION_ID, cookie, {
+            maxAge: 30 * 24 * 60 * 60,
+            path: "/",
+        });
+    }
 
     return data.user;
 };

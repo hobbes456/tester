@@ -6,7 +6,8 @@ import {
     setLogin,
     setCurrent,
     setLogout,
-    getSuccess,
+    getSuccessSignup,
+    getSuccessSignin,
     getFailure,
     getLogout,
 } from "@/models/user";
@@ -17,8 +18,8 @@ import { IUser } from "@/interface/IUser";
 
 function* handleRegisterSaga(action: PayloadAction<IUser>) {
     try {
-        const user: IUser = yield call(userRegister, action.payload);
-        yield put(getSuccess(user));
+        yield call(userRegister, action.payload);
+        yield put(getSuccessSignup());
     } catch (error) {
         yield put(getFailure((error as Error).message));
     }
@@ -27,7 +28,7 @@ function* handleRegisterSaga(action: PayloadAction<IUser>) {
 function* handleLoginSaga(action: PayloadAction<IUser>) {
     try {
         const user: IUser = yield call(userLogin, action.payload);
-        yield put(getSuccess(user));
+        yield put(getSuccessSignin(user));
     } catch (error) {
         yield put(getFailure((error as Error).message));
     }
@@ -36,7 +37,7 @@ function* handleLoginSaga(action: PayloadAction<IUser>) {
 function* handleCurrentSaga(action: PayloadAction<string | null>) {
     try {
         const user: IUser = yield call(currentUser, action.payload);
-        yield put(getSuccess(user));
+        yield put(getSuccessSignin(user));
     } catch (error) {
         yield put(getFailure((error as Error).message));
     }

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import clsx from "clsx";
 
 import { useAppSelector } from "@/hooks/useAppSelector";
 
@@ -13,19 +14,37 @@ import s from "./LoginScreen.module.scss";
 const LoginScreen = () => {
     const router = useRouter();
 
+    const isRegistered = useAppSelector(userSelectors.registered);
     const isAuth = useAppSelector(userSelectors.isAuth);
     const isError = useAppSelector(userSelectors.isError);
 
     useEffect(() => {
         if (isAuth) router.push("/main");
-    }, [isAuth]);
+    }, [isAuth, router]);
 
     return (
         <div className={s.loginScreen}>
             <Logo />
             <LoginForm />
+            {isRegistered && (
+                <p
+                    className={clsx([
+                        [s.loginScreen__text],
+                        [s.loginScreen__text_success],
+                    ])}
+                >
+                    You have successfully registered, now login.
+                </p>
+            )}
             {isError && (
-                <p className={s.loginScreen__error}>Error: {isError}</p>
+                <p
+                    className={clsx([
+                        [s.loginScreen__text],
+                        [s.loginScreen__text_error],
+                    ])}
+                >
+                    Error: {isError}
+                </p>
             )}
         </div>
     );

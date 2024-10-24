@@ -7,9 +7,16 @@
         margin-top: 30px;
     }
 
-    &__error {
+    &__text {
         @include p_normal_font;
         text-align: center;
-        color: $red_1;
+
+        &_success {
+            color: $green_1;
+        }
+
+        &_error {
+            color: $red_1;
+        }
     }
 }
