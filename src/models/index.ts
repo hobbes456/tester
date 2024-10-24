@@ -2,9 +2,11 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 
 import userSlice from "@/models/user";
+import displaySlice from "@/models/display";
 
 const combinedReducer = combineReducers({
     user: userSlice,
+    display: displaySlice,
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

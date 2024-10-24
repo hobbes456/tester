@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+
 import { useAppSelector } from "@/hooks/useAppSelector";
+import { useAction } from "@/hooks/useAction";
 
 import { userSelectors } from "@/models/user";
+import { setWelcomeDone, displaySelectors } from "@/models/display";
 
 import ModalWindow from "@components/ModalWindow";
 import Welcome from "@components/Welcome";
@@ -11,18 +14,20 @@ import Header from "@components/Header";
 import s from "./MainScreen.module.scss";
 
 const MainScreen = () => {
-    const [isWelcome, setIsWelcome] = useState<boolean>(false);
-
     const user = useAppSelector(userSelectors.user);
+    const isWelcome = useAppSelector(displaySelectors.isWelcome);
 
-    const handleClose = () => {
-        setIsWelcome((prev) => !prev);
-        localStorage.setItem("isWelcomeShow", JSON.stringify(false));
-    };
+    const handleWelcomeDone = useAction(setWelcomeDone);
+
+    const handleClose = () => handleWelcomeDone(false);
 
     useEffect(() => {
-        const savedValue = localStorage.getItem("isWelcomeShow");
-        setIsWelcome(savedValue ? JSON.parse(savedValue) : true);
+        const savedValue = localStorage.getItem("isWelcome");
+
+        if (!savedValue) {
+            handleWelcomeDone(true);
+            localStorage.setItem("isWelcome", JSON.stringify(isWelcome));
+        }
     }, []);
 
     return (
@@ -42,7 +47,7 @@ const MainScreen = () => {
                 </ul>
             )}
             {isWelcome && (
-                <ModalWindow title="Welcome" onClose={() => handleClose()}>
+                <ModalWindow title="Welcome" onClose={handleClose}>
                     <Welcome user={user} />
                 </ModalWindow>
             )}
