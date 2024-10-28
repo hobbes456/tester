@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export * as displaySelectors from "./selectors";
 
-interface InitialStateUserProps {
+interface InitialStateDisplayProps {
     isWelcomeDone: boolean;
 }
 
-const initialState: InitialStateUserProps = {
+const initialState: InitialStateDisplayProps = {
     isWelcomeDone: false,
 };
 

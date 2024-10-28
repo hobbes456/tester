@@ -1,0 +1,31 @@
+.createScreen {
+    margin-top: 20px;
+
+    @include flex_column_center;
+    justify-content: space-around;
+
+    &__title {
+        @include screen_title;
+    }
+
+    &__buttons {
+        margin-top: 20px;
+
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 350px;
+    }
+
+    &__button {
+        @include form_button;
+
+        @include p_normal_font;
+
+        transition: border-color 0.2s ease-in-out;
+
+        &:hover {
+            border-color: $green_1;
+        }
+    }
+}

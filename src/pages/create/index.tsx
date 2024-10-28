@@ -5,16 +5,16 @@ import { END } from "redux-saga";
 import { SagaStore, wrapper } from "@/store";
 import { setCurrent } from "@/models/user";
 
-import { IMainScreen } from "@/interface/IMainScreen";
+import { ICreateScreen } from "@/interface/ICreateScreen";
 
 import { SESSION_ID } from "@/constants/cookieNames";
 
-import MainScreen from "@pages/MainScreen";
+import CreateScreen from "@pages/CreateScreen";
 import ProtectedRout from "@components/ProtectedRout";
 
-const Main: React.FC<IMainScreen> = ({ user }) => (
+const Create: React.FC<ICreateScreen> = ({ user }) => (
     <ProtectedRout>
-        <MainScreen user={user} />;
+        <CreateScreen user={user} />
     </ProtectedRout>
 );
 
@@ -32,4 +32,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 );
 
-export default Main;
+export default Create;

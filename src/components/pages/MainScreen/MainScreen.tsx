@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import { useAppSelector } from "@/hooks/useAppSelector";
 import { useAction } from "@/hooks/useAction";
 
-import { userSelectors } from "@/models/user";
 import { setWelcomeDone, displaySelectors } from "@/models/display";
+
+import { IMainScreen } from "@/interface/IMainScreen";
 
 import ModalWindow from "@components/ModalWindow";
 import Welcome from "@components/Welcome";
@@ -13,8 +14,7 @@ import Header from "@components/Header";
 
 import s from "./MainScreen.module.scss";
 
-const MainScreen = () => {
-    const user = useAppSelector(userSelectors.user);
+const MainScreen: React.FC<IMainScreen> = ({ user }) => {
     const isWelcome = useAppSelector(displaySelectors.isWelcome);
 
     const handleWelcomeDone = useAction(setWelcomeDone);
@@ -36,10 +36,6 @@ const MainScreen = () => {
             <h1 className={s.mainScreen__title}>List of tests</h1>
             {user && (
                 <ul className={s.mainScreen__list}>
-                    <TestCard user={user} />
-                    <TestCard user={user} />
-                    <TestCard user={user} />
-                    <TestCard user={user} />
                     <TestCard user={user} />
                     <TestCard user={user} />
                     <TestCard user={user} />

@@ -1,11 +1,7 @@
-.mainScreen {
+.runScreen {
     @include flex_column_center;
 
     &__title {
         @include screen_title;
-    }
-
-    &__list {
-        @include flex_column_center;
     }
 }

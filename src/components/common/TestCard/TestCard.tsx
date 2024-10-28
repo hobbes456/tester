@@ -17,6 +17,8 @@ interface TestCardProps {
 const TestCard: React.FC<TestCardProps> = ({ user }) => {
     const [showModal, setShowModal] = useState<boolean>(false);
 
+    const { username, is_admin } = user;
+
     const handleClose = () => setShowModal((prev) => !prev);
 
     const { toolSvg } = svgs;
@@ -35,10 +37,10 @@ const TestCard: React.FC<TestCardProps> = ({ user }) => {
                 <h1 className={s.testCard__title}>
                     Правила дорожного движения
                 </h1>
-                <p className={s.testCard__text}>Author: {user.username}</p>
+                <p className={s.testCard__text}>Author: {username}</p>
                 <p className={s.testCard__text}>Creation date: Date create</p>
             </div>
-            {user.is_admin && (
+            {is_admin && (
                 <Image
                     className={s.testCard__tool}
                     src={toolSvg.src}

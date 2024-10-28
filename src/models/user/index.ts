@@ -48,6 +48,7 @@ const userSlice = createSlice({
             state.isLoading = false;
         },
         getFailure(state, action: PayloadAction<string>) {
+            state.registered = false;
             state.isLoading = false;
             state.isError = action.payload;
         },
