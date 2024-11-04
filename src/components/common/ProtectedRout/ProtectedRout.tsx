@@ -18,7 +18,7 @@ const ProtectedRout: React.FC<ProtectedRoutProps> = ({ children }) => {
         if (!isAuth) router.push("/login");
     }, [isAuth, router]);
 
-    return children;
+    return isAuth ? children : <p />;
 };
 
 export default ProtectedRout;

@@ -1,18 +1,18 @@
-import axios from "axios";
 import { destroyCookie, setCookie } from "nookies";
 
 import { fetchData } from "@/lib/fetchData";
+import { localAxios } from "@/lib/localAxios";
 
 import { IUser } from "@/interface/IUser";
 
 import { SESSION_ID } from "@/constants/cookieNames";
 
-export const userRegister = async (user: IUser): Promise<void> => {
+export const registerUserApi = async (user: IUser): Promise<void> => {
     await fetchData.post("/signup", user);
 };
 
-export const userLogin = async (user: IUser): Promise<IUser> => {
-    const { data } = await axios.post("/api/signin", user);
+export const loginUserApi = async (user: IUser): Promise<IUser> => {
+    const { data } = await localAxios.post("/api/signin", user);
 
     const cookie = data?.cookie;
 
@@ -26,10 +26,10 @@ export const userLogin = async (user: IUser): Promise<IUser> => {
     return data.user;
 };
 
-export const currentUser = async (
+export const currentUserApi = async (
     session_id: string | null
 ): Promise<IUser> => {
-    fetchData.defaults.headers["Cookie"] = session_id
+    fetchData.defaults.headers.Cookie = session_id
         ? `${SESSION_ID}=${session_id}`
         : null;
 
@@ -38,7 +38,7 @@ export const currentUser = async (
     return data;
 };
 
-export const userLogout = async (): Promise<void> => {
+export const logoutUserApi = async (): Promise<void> => {
     await fetchData.delete("/logout");
 
     destroyCookie(null, SESSION_ID);

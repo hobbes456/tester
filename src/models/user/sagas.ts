@@ -2,50 +2,64 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { call, put, takeEvery } from "redux-saga/effects";
 
 import {
+    setRequest,
+    getFailure,
     setRegister,
+    getRegister,
     setLogin,
+    getLogin,
     setCurrent,
     setLogout,
-    getSuccessSignup,
-    getSuccessSignin,
-    getFailure,
     getLogout,
 } from "@/models/user";
 
-import { userRegister, userLogin, currentUser, userLogout } from "./api";
+import {
+    registerUserApi,
+    loginUserApi,
+    currentUserApi,
+    logoutUserApi,
+} from "./api";
 
 import { IUser } from "@/interface/IUser";
 
-function* handleRegisterSaga(action: PayloadAction<IUser>) {
+function* handleRegisterUserSaga(action: PayloadAction<IUser>) {
     try {
-        yield call(userRegister, action.payload);
-        yield put(getSuccessSignup());
+        yield put(setRequest());
+
+        yield call(registerUserApi, action.payload);
+        yield put(getRegister());
     } catch (error) {
         yield put(getFailure((error as Error).message));
     }
 }
 
-function* handleLoginSaga(action: PayloadAction<IUser>) {
+function* handleLoginUserSaga(action: PayloadAction<IUser>) {
     try {
-        const user: IUser = yield call(userLogin, action.payload);
-        yield put(getSuccessSignin(user));
+        yield put(setRequest());
+
+        const user: IUser = yield call(loginUserApi, action.payload);
+        yield put(getLogin(user));
     } catch (error) {
         yield put(getFailure((error as Error).message));
     }
 }
 
-function* handleCurrentSaga(action: PayloadAction<string | null>) {
+function* handleCurrentUserSaga(action: PayloadAction<string | null>) {
     try {
-        const user: IUser = yield call(currentUser, action.payload);
-        yield put(getSuccessSignin(user));
+        yield put(setRequest());
+
+        const user: IUser = yield call(currentUserApi, action.payload);
+        yield put(getLogin(user));
     } catch (error) {
         yield put(getFailure((error as Error).message));
     }
 }
 
-function* handleLogoutSaga() {
+function* handleLogoutUserSaga() {
     try {
-        yield call(userLogout);
+        yield put(setRequest());
+
+        yield call(logoutUserApi);
         yield put(getLogout());
     } catch (error) {
         console.error((error as Error).message);
@@ -53,8 +67,8 @@ function* handleLogoutSaga() {
 }
 
 export function* watchUserSagas() {
-    yield takeEvery(setRegister.type, handleRegisterSaga);
-    yield takeEvery(setLogin.type, handleLoginSaga);
-    yield takeEvery(setCurrent.type, handleCurrentSaga);
-    yield takeEvery(setLogout.type, handleLogoutSaga);
+    yield takeEvery(setRegister.type, handleRegisterUserSaga);
+    yield takeEvery(setLogin.type, handleLoginUserSaga);
+    yield takeEvery(setCurrent.type, handleCurrentUserSaga);
+    yield takeEvery(setLogout.type, handleLogoutUserSaga);
 }

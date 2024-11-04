@@ -1,13 +1,10 @@
 import axios from "axios";
 
-import { BASE_URL } from "@/constants/baseUrl";
-import { SCOPE_KEY } from "@/constants/scopeKey";
-
 export const fetchData = axios.create({
-    baseURL: BASE_URL,
+    baseURL: "https://interns-test-fe.snp.agency/api/v1/",
     headers: {
         Accept: "application/json",
-        "scope-key": SCOPE_KEY,
+        "scope-key": "Y@<&8>K%=6S?#L5wD3kqQ(",
         "Content-Type": "application/json",
     },
     withCredentials: true,

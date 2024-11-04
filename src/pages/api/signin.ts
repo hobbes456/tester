@@ -19,6 +19,6 @@ export default async function handler(
 
         return res.status(200).send({ user: data });
     } catch (error) {
-        return res.status(401).send((error as Error).message);
+        return res.status(500).send((error as Error).message);
     }
 }

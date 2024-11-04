@@ -2,22 +2,26 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import { IUser } from "@/interface/IUser";
+import { ITest } from "@/interface/ITest";
 
 import ModalWindow from "@components/ModalWindow";
 import Confirmation from "@components/Confirmation";
 
 import svgs from "@/constants/svgs";
+import { formatDate } from "@/constants/formatDate";
 
 import s from "./TestCard.module.scss";
 
 interface TestCardProps {
     user: IUser;
+    test: ITest;
 }
 
-const TestCard: React.FC<TestCardProps> = ({ user }) => {
+const TestCard: React.FC<TestCardProps> = ({ user, test }) => {
     const [showModal, setShowModal] = useState<boolean>(false);
 
     const { username, is_admin } = user;
+    const { id, title, created_at } = test;
 
     const handleClose = () => setShowModal((prev) => !prev);
 
@@ -34,11 +38,12 @@ const TestCard: React.FC<TestCardProps> = ({ user }) => {
                 className={s.testCard__information}
                 onClick={() => handleClose()}
             >
-                <h1 className={s.testCard__title}>
-                    Правила дорожного движения
-                </h1>
+                <h1 className={s.testCard__title}>{title}</h1>
+                <p className={s.testCard__text}>Id: {id}</p>
                 <p className={s.testCard__text}>Author: {username}</p>
-                <p className={s.testCard__text}>Creation date: Date create</p>
+                <p className={s.testCard__text}>
+                    Creation date: {formatDate(created_at)}
+                </p>
             </div>
             {is_admin && (
                 <Image

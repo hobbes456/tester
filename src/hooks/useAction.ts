@@ -8,7 +8,7 @@ export const useAction = (action: Function) => {
     const dispatch = useAppDispatch();
 
     return useCallback(
-        (arg?: IUser | string | boolean) => dispatch(action(arg)),
+        (arg?: IUser | string | boolean | number) => dispatch(action(arg)),
         [dispatch, action]
     );
 };
