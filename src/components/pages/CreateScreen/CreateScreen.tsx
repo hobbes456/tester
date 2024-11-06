@@ -2,18 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { useAction } from "@/hooks/useAction";
-import {
-    setCreateTest,
-    setPatchTest,
-    setDeleteTest,
-    setTest,
-    setTests,
-} from "@/models/tests";
+
+import { setCreateTest } from "@/models/test";
 
 import { ICreateScreen } from "@/interface/ICreateScreen";
 
 import Header from "@components/Header";
 import Input from "@components/Input";
+import ModalWindow from "@components/ModalWindow";
+import Confirmation from "@components/Confirmation";
 
 import s from "./CreateScreen.module.scss";
 
@@ -21,15 +18,23 @@ const CreateScreen: React.FC<ICreateScreen> = ({ user }) => {
     const router = useRouter();
 
     const [testName, setTestName] = useState<string>("");
+    const [showConfirmCreateTest, setShowConfirmCreateTest] =
+        useState<boolean>(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTestName(event.target.value);
     };
 
-    const handleTestCreate = useAction(setCreateTest);
-    const handleGetTest = useAction(setTest);
-    const handleGetTests = useAction(setTests);
-    const handleTestDelete = useAction(setDeleteTest);
+    const setCreate = useAction(setCreateTest);
+
+    const handleReset = () => setTestName("");
+    const handleCloseConfirmCreate = () =>
+        setShowConfirmCreateTest((prev) => !prev);
+
+    const handleCreate = async (name: string) => {
+        setCreate(name);
+        handleCloseConfirmCreate();
+    };
 
     useEffect(() => {
         if (!user?.is_admin) router.push("/main");
@@ -49,29 +54,29 @@ const CreateScreen: React.FC<ICreateScreen> = ({ user }) => {
                     <div className={s.createScreen__buttons}>
                         <button
                             className={s.createScreen__button}
-                            onClick={() => handleTestCreate(testName)}
+                            onClick={handleCloseConfirmCreate}
                         >
                             Create
                         </button>
                         <button
                             className={s.createScreen__button}
-                            onClick={() => handleGetTest(parseInt(testName))}
+                            onClick={handleReset}
                         >
-                            Test
-                        </button>
-                        <button
-                            className={s.createScreen__button}
-                            onClick={() => handleGetTests()}
-                        >
-                            Tests
-                        </button>
-                        <button
-                            className={s.createScreen__button}
-                            onClick={() => handleTestDelete(parseInt(testName))}
-                        >
-                            Delete
+                            Reset
                         </button>
                     </div>
+                    {showConfirmCreateTest && (
+                        <ModalWindow
+                            title="Confirmation"
+                            onClose={handleCloseConfirmCreate}
+                        >
+                            <Confirmation
+                                text={`Do you really want to create a test named "${testName}"?`}
+                                onConfirm={() => handleCreate(testName)}
+                                onFailure={handleCloseConfirmCreate}
+                            />
+                        </ModalWindow>
+                    )}
                 </>
             )}
         </div>

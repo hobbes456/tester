@@ -3,12 +3,12 @@ import { HYDRATE } from "next-redux-wrapper";
 
 import userSlice from "@/models/user";
 import displaySlice from "@/models/display";
-import testsSlice from "@/models/tests";
+import testSlice from "@/models/test";
 
 const combinedReducer = combineReducers({
     user: userSlice,
     display: displaySlice,
-    tests: testsSlice,
+    test: testSlice,
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

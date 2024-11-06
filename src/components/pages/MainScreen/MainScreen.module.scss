@@ -5,6 +5,17 @@
         @include screen_title;
     }
 
+    &__warning {
+        padding: 10px;
+
+        @include p_normal_font;
+        text-align: center;
+
+        @include v550 {
+            @include p_small_font;
+        }
+    }
+
     &__list {
         @include flex_column_center;
     }

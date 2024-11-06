@@ -6,7 +6,7 @@ import { IMeta } from "@/interface/IMeta";
 
 export * as testsSelectors from "./selectors";
 
-interface InitialStateTestsProps {
+interface InitialStateTestProps {
     test: ITest | null;
     tests: ITest[];
     meta: IMeta;
@@ -14,7 +14,7 @@ interface InitialStateTestsProps {
     isError: string | null;
 }
 
-const initialState: InitialStateTestsProps = {
+const initialState: InitialStateTestProps = {
     test: null,
     tests: [],
     meta: {
@@ -25,8 +25,8 @@ const initialState: InitialStateTestsProps = {
     isError: null,
 };
 
-const testsSlice = createSlice({
-    name: "tests",
+const testSlice = createSlice({
+    name: "test",
     initialState,
     reducers: {
         setRequest(state) {
@@ -87,6 +87,6 @@ export const {
     getTest,
     setTests,
     getTests,
-} = testsSlice.actions;
+} = testSlice.actions;
 
-export default testsSlice.reducer;
+export default testSlice.reducer;

@@ -29,15 +29,7 @@ const TestCard: React.FC<TestCardProps> = ({ user, test }) => {
 
     return (
         <div className={s.testCard}>
-            {showModal && (
-                <ModalWindow title="Confirmation" onClose={handleClose}>
-                    <Confirmation onClose={handleClose} />
-                </ModalWindow>
-            )}
-            <div
-                className={s.testCard__information}
-                onClick={() => handleClose()}
-            >
+            <div className={s.testCard__information} onClick={handleClose}>
                 <h1 className={s.testCard__title}>{title}</h1>
                 <p className={s.testCard__text}>Id: {id}</p>
                 <p className={s.testCard__text}>Author: {username}</p>
@@ -53,6 +45,15 @@ const TestCard: React.FC<TestCardProps> = ({ user, test }) => {
                     width={30}
                     height={30}
                 />
+            )}
+            {showModal && (
+                <ModalWindow title="Confirmation" onClose={handleClose}>
+                    <Confirmation
+                        text={"Start taking the selected test?"}
+                        onConfirm={() => console.log(1)}
+                        onFailure={handleClose}
+                    />
+                </ModalWindow>
             )}
         </div>
     );

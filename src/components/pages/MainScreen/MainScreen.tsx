@@ -4,6 +4,7 @@ import { useAppSelector } from "@/hooks/useAppSelector";
 import { useAction } from "@/hooks/useAction";
 
 import { setWelcomeDone, displaySelectors } from "@/models/display";
+// import { testsSelectors } from "@/models/test";
 
 import { IMainScreen } from "@/interface/IMainScreen";
 
@@ -16,6 +17,8 @@ import s from "./MainScreen.module.scss";
 
 const MainScreen: React.FC<IMainScreen> = ({ user, tests }) => {
     const isWelcome = useAppSelector(displaySelectors.isWelcome);
+
+    // const isTests = useAppSelector(testsSelectors.tests);
 
     const handleWelcomeDone = useAction(setWelcomeDone);
 
@@ -34,11 +37,18 @@ const MainScreen: React.FC<IMainScreen> = ({ user, tests }) => {
         <div className={s.mainScreen}>
             <Header user={user} />
             <h1 className={s.mainScreen__title}>List of tests</h1>
-            <ul className={s.mainScreen__list}>
-                {tests.map((test) => (
-                    <TestCard key={test.id} user={user} test={test} />
-                ))}
-            </ul>
+            {tests.length === 0 ? (
+                <p className={s.mainScreen__warning}>
+                    There is no information on tests in the database, or they
+                    have not yet been created
+                </p>
+            ) : (
+                <ul className={s.mainScreen__list}>
+                    {tests.map((test) => (
+                        <TestCard key={test.id} user={user} test={test} />
+                    ))}
+                </ul>
+            )}
             {isWelcome && (
                 <ModalWindow title="Welcome" onClose={handleClose}>
                     <Welcome user={user} />

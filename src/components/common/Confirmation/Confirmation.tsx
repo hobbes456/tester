@@ -3,23 +3,24 @@ import React from "react";
 import s from "./Confirmation.module.scss";
 
 type ConfirmationProps = {
-    onClose: () => void;
+    text: string;
+    onConfirm: () => void;
+    onFailure: () => void;
 };
 
-const Confirmation: React.FC<ConfirmationProps> = ({ onClose }) => {
-    const handleClick = () => console.log(1);
-
+const Confirmation: React.FC<ConfirmationProps> = ({
+    text,
+    onConfirm,
+    onFailure,
+}) => {
     return (
         <div className={s.confirmation}>
-            <p>Start taking the selected test?</p>
+            <p>{text}</p>
             <div className={s.confirmation__buttons}>
-                <button
-                    className={s.confirmation__button}
-                    onClick={handleClick}
-                >
+                <button className={s.confirmation__button} onClick={onConfirm}>
                     Yes
                 </button>
-                <button className={s.confirmation__button} onClick={onClose}>
+                <button className={s.confirmation__button} onClick={onFailure}>
                     No
                 </button>
             </div>

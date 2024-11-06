@@ -3,7 +3,7 @@ import React from "react";
 import { useAppSelector } from "@/hooks/useAppSelector";
 
 import { userSelectors } from "@/models/user";
-import { testsSelectors } from "@/models/tests";
+import { testsSelectors } from "@/models/test";
 
 import AppLoader from "@components/AppLoader";
 

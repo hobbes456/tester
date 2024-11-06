@@ -101,6 +101,7 @@
 
     @include p_normal_font;
     color: $grey_1;
+    text-align: center;
 
     @include v550 {
         padding: 10px;

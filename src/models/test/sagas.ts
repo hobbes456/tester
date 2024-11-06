@@ -14,7 +14,7 @@ import {
     getTest,
     setTests,
     getTests,
-} from "@/models/tests";
+} from "@/models/test";
 
 import {
     createTestApi,
