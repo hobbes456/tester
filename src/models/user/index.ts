@@ -29,6 +29,9 @@ const userSlice = createSlice({
             state.isLoading = true;
             state.isError = null;
         },
+        getRequest(state) {
+            state.isLoading = false;
+        },
         getFailure(state, action: PayloadAction<string>) {
             state.registered = false;
             state.isLoading = false;
@@ -37,21 +40,18 @@ const userSlice = createSlice({
         setRegister() {},
         getRegister(state) {
             state.registered = true;
-            state.isLoading = false;
         },
         setLogin() {},
         getLogin(state, action: PayloadAction<IUser>) {
             state.isAuthenticated = true;
             state.user = action.payload;
             state.registered = false;
-            state.isLoading = false;
         },
         setCurrent(state, action: PayloadAction<string | null>) {},
         setLogout() {},
         getLogout(state) {
             state.isAuthenticated = false;
             state.user = null;
-            state.isLoading = false;
             state.isError = null;
         },
     },
@@ -59,6 +59,7 @@ const userSlice = createSlice({
 
 export const {
     setRequest,
+    getRequest,
     getFailure,
     setRegister,
     getRegister,

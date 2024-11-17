@@ -48,11 +48,9 @@ export default async function handler(
             }
 
             case DELETE_QUESTION: {
-                const { data, status } = await fetchData.delete(
-                    `/questions/${id}`
-                );
+                const { status } = await fetchData.delete(`/questions/${id}`);
 
-                return res.status(status).send(data);
+                return res.status(status).send(id);
             }
         }
     } catch (error) {

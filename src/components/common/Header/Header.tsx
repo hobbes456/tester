@@ -24,6 +24,7 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
             <ul className={s.header__links}>
                 {headerLinks
                     .filter((link) => link.rout !== router.pathname)
+                    .filter((link) => !(link.name === "Create" && !user.is_admin))
                     .map((link) => {
                         return (
                             <li key={link.name}>

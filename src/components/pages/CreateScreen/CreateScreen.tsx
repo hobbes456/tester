@@ -32,8 +32,10 @@ const CreateScreen: React.FC<ICreateScreen> = ({ user }) => {
         setShowConfirmCreateTest((prev) => !prev);
 
     const handleCreate = async (name: string) => {
-        setCreate(name);
+        // setCreate(name);
         handleCloseConfirmCreate();
+
+        router.push(`/create/${name}`);
     };
 
     useEffect(() => {
