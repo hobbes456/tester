@@ -17,69 +17,65 @@ import s from "./CreateScreen.module.scss";
 const CreateScreen: React.FC<ICreateScreen> = ({ user }) => {
     const router = useRouter();
 
-    const [testName, setTestName] = useState<string>("");
+    const [name, setName] = useState<string>("");
     const [showConfirmCreateTest, setShowConfirmCreateTest] =
         useState<boolean>(false);
 
+    const createTest = useAction(setCreateTest);
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTestName(event.target.value);
+        setName(event.target.value);
     };
 
-    const setCreate = useAction(setCreateTest);
-
-    const handleReset = () => setTestName("");
+    const handleReset = () => setName("");
     const handleCloseConfirmCreate = () =>
         setShowConfirmCreateTest((prev) => !prev);
 
     const handleCreate = async (name: string) => {
-        // setCreate(name);
+        createTest(name);
+        handleReset();
         handleCloseConfirmCreate();
-
-        router.push(`/create/${name}`);
     };
 
     useEffect(() => {
-        if (!user?.is_admin) router.push("/main");
-    }, [user?.is_admin, router]);
+        if (!user.is_admin) router.push("/main");
+    }, [user.is_admin, router]);
 
     return (
         <div className={s.createScreen}>
-            {user?.is_admin && (
-                <>
-                    <Header user={user} />
-                    <h1 className={s.createScreen__title}>Create a test</h1>
-                    <Input
-                        value={testName}
-                        onChange={handleChange}
-                        placeholder="Enter test name"
+            <Header user={user} />
+            <h1 className={s.createScreen__title}>Create a test</h1>
+            <Input
+                value={name}
+                onChange={handleChange}
+                placeholder="Enter test name"
+                isBig={true}
+            />
+            <div className={s.createScreen__buttons}>
+                <button
+                    className={s.createScreen__button}
+                    onClick={handleCloseConfirmCreate}
+                >
+                    Create
+                </button>
+                <button
+                    className={s.createScreen__button}
+                    onClick={handleReset}
+                >
+                    Reset
+                </button>
+            </div>
+            {showConfirmCreateTest && (
+                <ModalWindow
+                    title="Confirmation"
+                    onClose={handleCloseConfirmCreate}
+                >
+                    <Confirmation
+                        text={`Do you really want to create a test named "${name}"?`}
+                        onConfirm={() => handleCreate(name)}
+                        onFailure={handleCloseConfirmCreate}
                     />
-                    <div className={s.createScreen__buttons}>
-                        <button
-                            className={s.createScreen__button}
-                            onClick={handleCloseConfirmCreate}
-                        >
-                            Create
-                        </button>
-                        <button
-                            className={s.createScreen__button}
-                            onClick={handleReset}
-                        >
-                            Reset
-                        </button>
-                    </div>
-                    {showConfirmCreateTest && (
-                        <ModalWindow
-                            title="Confirmation"
-                            onClose={handleCloseConfirmCreate}
-                        >
-                            <Confirmation
-                                text={`Do you really want to create a test named "${testName}"?`}
-                                onConfirm={() => handleCreate(testName)}
-                                onFailure={handleCloseConfirmCreate}
-                            />
-                        </ModalWindow>
-                    )}
-                </>
+                </ModalWindow>
             )}
         </div>
     );

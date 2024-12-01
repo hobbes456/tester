@@ -16,12 +16,9 @@ type AccountProps = {
 const Account: React.FC<AccountProps> = ({ user }) => {
     const { username, is_admin } = user;
 
-    const logoutRequest = useAction(setLogout);
+    const logout = useAction(setLogout);
 
-    const handleLogout = async () => {
-        await logoutRequest();
-        localStorage.removeItem("isWelcome");
-    };
+    const handleLogout = () => {logout();};
 
     return (
         <div className={s.account}>

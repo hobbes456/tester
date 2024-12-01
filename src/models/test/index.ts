@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { ITest } from "@/interface/ITest";
 import { IMeta } from "@/interface/IMeta";
+import { ITestsConfig } from "@/interface/ITestsConfig";
 import { IQuestionConfig } from "@/interface/IQuestionConfig";
 import { IQuestion } from "@/interface/IQuestion";
 import { IAnswerConfig } from "@/interface/IAnswerConfig";
@@ -44,11 +45,11 @@ const testSlice = createSlice({
             state.isError = action.payload;
             state.isLoading = false;
         },
-        setCreateTest() {},
+        setCreateTest(state, action: PayloadAction<string>) {},
         getCreateTest(state, action: PayloadAction<ITest>) {
             state.currentTest = action.payload;
         },
-        setPatchTest() {},
+        setPatchTest(state, action: PayloadAction<ITest>) {},
         getPatchTest(state, action: PayloadAction<ITest>) {
             const { id } = action.payload;
 
@@ -56,7 +57,7 @@ const testSlice = createSlice({
                 test.id !== id ? test : { ...action.payload }
             );
         },
-        setDeleteTest() {},
+        setDeleteTest(state, action: PayloadAction<number>) {},
         getDeleteTest(state, action: PayloadAction<number>) {
             state.tests = state.tests.filter(
                 (test) => test.id !== action.payload
@@ -67,11 +68,11 @@ const testSlice = createSlice({
                     ? null
                     : state.currentTest;
         },
-        setTest() {},
+        setTest(state, action: PayloadAction<number>) {},
         getTest(state, action: PayloadAction<ITest>) {
             state.currentTest = action.payload;
         },
-        setTests(state, action: PayloadAction<string | null>) {},
+        setTests(state, action: PayloadAction<ITestsConfig>) {},
         getTests(
             state,
             action: PayloadAction<{ tests: ITest[]; meta: IMeta }>

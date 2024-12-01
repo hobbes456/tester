@@ -5,7 +5,7 @@
         @include screen_title;
     }
 
-    &__warning {
+    &__loading {
         padding: 10px;
 
         @include p_normal_font;
@@ -14,9 +14,5 @@
         @include v550 {
             @include p_small_font;
         }
-    }
-
-    &__list {
-        @include flex_column_center;
     }
 }

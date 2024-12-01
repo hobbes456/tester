@@ -2,13 +2,11 @@ import { useCallback } from "react";
 
 import { useAppDispatch } from "./useAppDispatch";
 
-import { IUser } from "@/interface/IUser";
-
 export const useAction = (action: Function) => {
     const dispatch = useAppDispatch();
 
     return useCallback(
-        (arg?: IUser | string | boolean | number) => dispatch(action(arg)),
+        (arg?: unknown) => dispatch(action(arg)),
         [dispatch, action]
     );
 };

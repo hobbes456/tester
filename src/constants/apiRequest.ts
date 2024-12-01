@@ -10,13 +10,8 @@ const getSessionId = (): string | null => {
     return cookies[SESSION_ID] || null;
 };
 
-export const apiRequest = async (
-    key: string,
-    url: string,
-    data: object,
-    current_session_id?: string | null
-) => {
-    const session_id = current_session_id || getSessionId();
+export const apiRequest = async (key: string, url: string, data: object) => {
+    const session_id = getSessionId();
 
     const response = await localAxios.post(url, {
         key,

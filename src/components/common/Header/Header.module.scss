@@ -21,12 +21,12 @@
     }
 
     &__link {
-        @include p-normal-font;
+        @include p_normal_font;
 
         transition: color 0.15s ease;
 
         @include v550 {
-            @include p-small-font;
+            @include p_small_font;
         }
 
         &:hover {

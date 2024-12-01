@@ -1,0 +1,35 @@
+.pagination {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 80px;
+
+    @include p_normal_font;
+
+    @include v550 {
+        @include p_small_font;
+    }
+
+    &__button {
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+            color: $grey_3;
+        }
+
+        &:active {
+            color: $grey_2;
+        }
+    }
+
+    &__current {
+        border-bottom: 2px solid $form_button_color_2;
+
+        @include p_big_font;
+
+        @include v550 {
+            @include p_normal_font;
+        }
+    }
+}

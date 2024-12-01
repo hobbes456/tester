@@ -1,25 +1,46 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { IConfigParams } from "@/interface/IConfigParams";
+
+import { setItem } from "@/constants/localStorageApi";
+import { WELCOME_KEY, CONFIG_KEY } from "@/constants/localStorageKeys";
+import { DESC } from "@/constants/sortParams";
+
 export * as displaySelectors from "./selectors";
 
 interface InitialStateDisplayProps {
-    isWelcomeDone: boolean;
+    isWelcome: boolean;
+    isParams: IConfigParams;
 }
 
 const initialState: InitialStateDisplayProps = {
-    isWelcomeDone: false,
+    isWelcome: false,
+    isParams: {
+        page: 1,
+        per: 5,
+        search: "",
+        sort: DESC,
+    },
 };
 
 const displaySlice = createSlice({
     name: "display",
     initialState,
     reducers: {
-        setWelcomeDone(state, action: PayloadAction<boolean>) {
-            state.isWelcomeDone = action.payload;
+        setWelcome(state, action: PayloadAction<boolean>) {
+            state.isWelcome = action.payload;
+
+            setItem(WELCOME_KEY, state.isWelcome);
+        },
+
+        setConfig(state, action: PayloadAction<IConfigParams>) {
+            Object.assign(state.isParams, action.payload);
+
+            setItem(CONFIG_KEY, state.isParams);
         },
     },
 });
 
-export const { setWelcomeDone } = displaySlice.actions;
+export const { setWelcome, setConfig } = displaySlice.actions;
 
 export default displaySlice.reducer;

@@ -3,6 +3,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { IUser } from "@/interface/IUser";
 
+import { removeItem } from "@/constants/localStorageApi";
+import { WELCOME_KEY, CONFIG_KEY } from "@/constants/localStorageKeys";
+
 export * as userSelectors from "./selectors";
 
 interface InitialStateUserProps {
@@ -53,6 +56,9 @@ const userSlice = createSlice({
             state.isAuthenticated = false;
             state.user = null;
             state.isError = null;
+
+            removeItem(WELCOME_KEY);
+            removeItem(CONFIG_KEY);
         },
     },
 });

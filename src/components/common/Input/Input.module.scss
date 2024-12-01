@@ -1,7 +1,15 @@
 .input {
     width: 100%;
-    max-width: 350px;
-    padding: 10px;
+
+    &_small {
+        max-width: 150px;
+        padding: 5px;
+    }
+
+    &_big {
+        max-width: 350px;
+        padding: 10px;
+    }
 
     @include p_normal_font;
 

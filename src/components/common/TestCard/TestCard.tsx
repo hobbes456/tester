@@ -18,23 +18,25 @@ interface TestCardProps {
 }
 
 const TestCard: React.FC<TestCardProps> = ({ user, test }) => {
+    const { is_admin } = user;
+    const { id, title, created_at, questions } = test;
+
     const [showModal, setShowModal] = useState<boolean>(false);
 
-    const { username, is_admin } = user;
-    const { id, title, created_at } = test;
+    const { toolSvg } = svgs;
 
     const handleClose = () => setShowModal((prev) => !prev);
-
-    const { toolSvg } = svgs;
 
     return (
         <div className={s.testCard}>
             <div className={s.testCard__information} onClick={handleClose}>
                 <h1 className={s.testCard__title}>{title}</h1>
                 <p className={s.testCard__text}>Id: {id}</p>
-                <p className={s.testCard__text}>Author: {username}</p>
                 <p className={s.testCard__text}>
                     Creation date: {formatDate(created_at)}
+                </p>
+                <p className={s.testCard__text}>
+                    Number of questions: {questions.length}
                 </p>
             </div>
             {is_admin && (

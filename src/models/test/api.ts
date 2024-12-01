@@ -1,5 +1,6 @@
 import { ITest } from "@/interface/ITest";
 import { IMeta } from "@/interface/IMeta";
+import { ITestsConfig } from "@/interface/ITestsConfig";
 import { IQuestionConfig } from "@/interface/IQuestionConfig";
 import { IQuestion } from "@/interface/IQuestion";
 import { IAnswerConfig } from "@/interface/IAnswerConfig";
@@ -39,11 +40,11 @@ export const getTestApi = async (id: number): Promise<ITest> =>
     apiRequest(GET_TEST, TESTS_API, { id });
 
 export const getTestsApi = async (
-    session_id: string | null
+    config: ITestsConfig
 ): Promise<{
     tests: ITest[];
     meta: IMeta;
-}> => await apiRequest(GET_TESTS, TESTS_API, {}, session_id);
+}> => await apiRequest(GET_TESTS, TESTS_API, { config });
 
 export const createQuestionApi = async (
     config: IQuestionConfig,

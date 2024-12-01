@@ -1,56 +1,64 @@
-import { useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 
 import { useAppSelector } from "@/hooks/useAppSelector";
 import { useAction } from "@/hooks/useAction";
 
-import { setWelcomeDone, displaySelectors } from "@/models/display";
-// import { testsSelectors } from "@/models/test";
+import { setWelcome, setConfig, displaySelectors } from "@/models/display";
+import { setTests, testsSelectors } from "@/models/test";
 
 import { IMainScreen } from "@/interface/IMainScreen";
 
+import Header from "@components/Header";
+import TestsList from "@components/TestsList";
 import ModalWindow from "@components/ModalWindow";
 import Welcome from "@components/Welcome";
-import TestCard from "@components/TestCard";
-import Header from "@components/Header";
+
+import { getItem } from "@/constants/localStorageApi";
+import { WELCOME_KEY, CONFIG_KEY } from "@/constants/localStorageKeys";
 
 import s from "./MainScreen.module.scss";
 
-const MainScreen: React.FC<IMainScreen> = ({ user, tests }) => {
+const MainScreen: React.FC<IMainScreen> = ({ user }) => {
     const isWelcome = useAppSelector(displaySelectors.isWelcome);
+    const isParams = useAppSelector(displaySelectors.isParams);
 
-    // const isTests = useAppSelector(testsSelectors.tests);
+    const tests = useAppSelector(testsSelectors.tests);
+    const totalCount = useAppSelector(testsSelectors.totalCount);
+    const loader = useAppSelector(testsSelectors.isLoading);
 
-    const handleWelcomeDone = useAction(setWelcomeDone);
-
-    const handleClose = () => handleWelcomeDone(false);
+    const handleWelcome = useAction(setWelcome);
+    const handleConfig = useAction(setConfig);
+    const loadTests = useAction(setTests);
 
     useEffect(() => {
-        const savedValue = localStorage.getItem("isWelcome");
+        if (getItem(WELCOME_KEY) !== false) handleWelcome(true);
+    }, []);
 
-        if (!savedValue) {
-            handleWelcomeDone(true);
-            localStorage.setItem("isWelcome", JSON.stringify(isWelcome));
-        }
-    }, [isWelcome, handleWelcomeDone]);
+    useEffect(() => {
+        const savedConfig = getItem(CONFIG_KEY);
+
+        if (savedConfig) handleConfig(savedConfig);
+
+        loadTests({ params: savedConfig });
+    }, [isParams]);
 
     return (
         <div className={s.mainScreen}>
             <Header user={user} />
-            <h1 className={s.mainScreen__title}>List of tests</h1>
-            {tests.length === 0 ? (
-                <p className={s.mainScreen__warning}>
-                    There is no information on tests in the database, or they
-                    have not yet been created
-                </p>
+            <h1 className={s.mainScreen__title}>
+                List of tests [{totalCount}]
+            </h1>
+            {loader ? (
+                <p className={s.mainScreen__loading}>...loading</p>
             ) : (
-                <ul className={s.mainScreen__list}>
-                    {tests.map((test) => (
-                        <TestCard key={test.id} user={user} test={test} />
-                    ))}
-                </ul>
+                <TestsList user={user} tests={tests} params={isParams} />
             )}
             {isWelcome && (
-                <ModalWindow title="Welcome" onClose={handleClose}>
+                <ModalWindow
+                    title="Welcome"
+                    onClose={() => handleWelcome(false)}
+                >
                     <Welcome user={user} />
                 </ModalWindow>
             )}

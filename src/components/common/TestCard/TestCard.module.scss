@@ -4,10 +4,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
-    max-width: 750px;
+    width: 500px;
 
     @include v550 {
+        width: 100%;
         max-width: 300px;
     }
 

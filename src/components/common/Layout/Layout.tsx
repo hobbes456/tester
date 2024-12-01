@@ -3,7 +3,6 @@ import React from "react";
 import { useAppSelector } from "@/hooks/useAppSelector";
 
 import { userSelectors } from "@/models/user";
-import { testsSelectors } from "@/models/test";
 
 import AppLoader from "@components/AppLoader";
 
@@ -12,10 +11,9 @@ type LayoutProps = {
 };
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-    const loadingUser = useAppSelector(userSelectors.isLoading);
-    const loadingTests = useAppSelector(testsSelectors.isLoading);
+    const loader = useAppSelector(userSelectors.isLoading);
 
-    return loadingUser || loadingTests ? <AppLoader /> : children;
+    return loader ? <AppLoader /> : children;
 };
 
 export default Layout;

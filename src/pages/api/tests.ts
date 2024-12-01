@@ -22,6 +22,7 @@ export default async function handler(
             title = null,
             test = null,
             id = null,
+            config = null,
         } = req.body;
 
         fetchData.defaults.headers.Cookie = session_id
@@ -62,14 +63,7 @@ export default async function handler(
             }
 
             case GET_TESTS: {
-                // const config = {
-                //     params: {
-                //         per: 20,
-                //     },
-                // };
-
-                // const { data, status } = await fetchData.get("/tests", config);
-                const { data, status } = await fetchData.get("/tests");
+                const { data, status } = await fetchData.get("/tests", config);
 
                 return res.status(status).send(data);
             }

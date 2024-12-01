@@ -52,6 +52,7 @@ import { IQuestionConfig } from "@/interface/IQuestionConfig";
 import { IQuestion } from "@/interface/IQuestion";
 import { IAnswerConfig } from "@/interface/IAnswerConfig";
 import { IAnswer } from "@/interface/IAnswer";
+import { ITestsConfig } from "@/interface/ITestsConfig";
 
 function* handleCreateTestSaga(action: PayloadAction<string>) {
     try {
@@ -105,7 +106,7 @@ function* handleGetTestSaga(action: PayloadAction<number>) {
     }
 }
 
-function* handleGetTestsSaga(action: PayloadAction<string | null>) {
+function* handleGetTestsSaga(action: PayloadAction<ITestsConfig>) {
     try {
         yield put(setRequest());
 
@@ -113,6 +114,7 @@ function* handleGetTestsSaga(action: PayloadAction<string | null>) {
             getTestsApi,
             action.payload
         );
+
         yield put(getTests(data));
 
         yield put(getRequest());

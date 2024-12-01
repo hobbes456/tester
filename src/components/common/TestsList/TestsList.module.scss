@@ -1,0 +1,52 @@
+.testsList {
+    @include flex_column_center;
+
+    &__tools {
+        margin-bottom: 15px;
+
+        align-self: flex-start;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        @include v550 {
+            flex-direction: column;
+            height: 70px;
+        }
+    }
+
+    &__sort {
+        @include p_normal_font;
+
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+            color: $red_1;
+        }
+
+        &:active {
+            color: $grey_2;
+        }
+
+        @include v550 {
+            @include p_small_font;
+        }
+    }
+
+    &__list {
+        @include flex_column_center;
+    }
+
+    &__warning {
+        padding: 10px;
+
+        @include p_normal_font;
+        text-align: center;
+
+        @include v550 {
+            @include p_small_font;
+        }
+    }
+}
